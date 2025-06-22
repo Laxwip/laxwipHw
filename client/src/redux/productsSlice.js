@@ -38,7 +38,11 @@ const productsSlice = createSlice({
     error: null,
     selectedProduct: null,
   },
-  reducers: {},
+  reducers: {
+    clearSearchResults: (state) => {
+      state.searchResults = [];
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {

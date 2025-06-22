@@ -12,10 +12,14 @@ export default function Search() {
   const handleChange = (e) => {
     const value = e.target.value;
     setQuery(value);
+
     if (value.trim() !== '') {
       dispatch(searchProducts(value));
+    } else {
+      dispatch({ type: 'products/clearSearchResults' });
     }
   };
+
 
   return (
     <div className="Search">
