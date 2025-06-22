@@ -1,0 +1,40 @@
+.Navbar {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1a1a1a; /* Fondo oscuro */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(0.3); /* Gris claro */
+  transition: filter 0.2s ease;
+}
+
+.icon.active {
+  filter: brightness(0) saturate(100%) invert(1); /* Blanco cuando activo */
+}

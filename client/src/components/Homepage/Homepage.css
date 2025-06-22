@@ -1,0 +1,65 @@
+.Homepage {
+  width: 100%;
+  height: calc(100% - 5rem);
+}
+
+.Homepage div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.2rem;
+  padding: 0.3rem;
+  box-sizing: border-box;
+}
+
+.Homepage div span {
+  background-color: #131314;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  width: 100%;
+  height: fit-content;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 0.8rem;
+}
+
+/* Nuevo bloque: Link dentro de span */
+.Homepage div span a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+
+/* Colores del texto dentro del Link */
+.Homepage div span a p,
+.Homepage div span a strong {
+  color: white;
+}
+
+.Homepage div span img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.productsContainerCharging {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  max-width: 50px;
+}
