@@ -200,49 +200,46 @@ app.delete("/deleteProducto/:id", async (req, res) => {
 
 //Obtener los productos que contengan los caracteres
 app.get("/buscarProducto", async (req, res) => {
-  const { texto } = req.query;
-  if (!texto || texto.trim() === "") {
-    return res.json([]); // si no hay texto, devolvemos un array vacío
-  }
-
   try {
-    const response = await notion.databases.query({
-      database_id: indice,
-    });
+    const query = req.query.q?.toLowerCase() || "";
 
-    const productos = response.results.map((page) => {
-      const props = page.properties;
-      return {
-        id: page.id,
-        nombre: props["Nombre"]?.title?.[0]?.plain_text || "",
-        disponibilidad: props["Disponibilidad"]?.select?.name || "",
-        numeroDoble: props["##"]?.rich_text?.[0]?.plain_text || "",
-        numero: props["#"]?.rich_text?.[0]?.plain_text || "",
-        serie: props["Serie"]?.rich_text?.[0]?.plain_text || "",
-        edicion: props["Edicion"]?.select?.name || "",
-        lote: props["Lote"]?.multi_select?.map((item) => item.name) || [],
-        tema: props["Tema"]?.rich_text?.[0]?.plain_text || "",
-        rareza: props["Rareza"]?.select?.name || "",
-        venta: props["Venta"]?.number || 0,
-        archivos: props["Archivos y multimedia"]?.files || [],
-        tematico: props["Tematico"]?.checkbox || false,
-      };
-    });
+    const response = await notion.databases.query({ database_id: indice });
 
-    const textoLower = texto.toLowerCase();
-    const coincidencias = productos.filter((prod) =>
-      prod.nombre.toLowerCase().includes(textoLower) ||
-      prod.serie.toLowerCase().includes(textoLower) ||
-      prod.edicion.toLowerCase().includes(textoLower) ||
-      prod.tema.toLowerCase().includes(textoLower)
-    );
+    const productosFiltrados = response.results
+      .map((page) => {
+        const props = page.properties;
 
-    res.json(coincidencias);
+        return {
+          id: page.id,
+          nombre: props["Nombre"]?.title?.[0]?.plain_text || "",
+          disponibilidad: props["Disponibilidad"]?.select?.name || "",
+          numeroDoble: props["##"]?.rich_text?.[0]?.plain_text || "",
+          numero: props["#"]?.rich_text?.[0]?.plain_text || "",
+          serie: props["Serie"]?.rich_text?.[0]?.plain_text || "",
+          edicion: props["Edicion"]?.select?.name || "",
+          lote: props["Lote"]?.multi_select?.map((item) => item.name) || [],
+          tema: props["Tema"]?.rich_text?.[0]?.plain_text || "",
+          rareza: props["Rareza"]?.select?.name || "",
+          venta: props["Venta"]?.number || 0,
+          archivos: props["Archivos y multimedia"]?.files || [],
+          tematico: props["Tematico"]?.checkbox || false,
+        };
+      })
+      .filter((producto) => {
+        return (
+          producto.nombre.toLowerCase().includes(query) ||
+          producto.serie.toLowerCase().includes(query) ||
+          producto.tema.toLowerCase().includes(query) ||
+          producto.lote.some((l) => l.toLowerCase().includes(query)) ||
+          producto.edicion.toLowerCase().includes(query)
+        );
+      });
+
+    res.json(productosFiltrados);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 //Obtener el producto por ID
 app.get("/producto/:id", async (req, res) => {
