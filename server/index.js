@@ -241,6 +241,36 @@ app.get("/buscarProducto", async (req, res) => {
   }
 });
 
+//Obtener el producto por ID
+app.get("/producto/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await notion.pages.retrieve({ page_id: id });
+    const props = response.properties;
+
+    const producto = {
+      id: response.id,
+      nombre: props["Nombre"]?.title?.[0]?.plain_text || "",
+      disponibilidad: props["Disponibilidad"]?.select?.name || "",
+      numeroDoble: props["##"]?.rich_text?.[0]?.plain_text || "",
+      numero: props["#"]?.rich_text?.[0]?.plain_text || "",
+      serie: props["Serie"]?.rich_text?.[0]?.plain_text || "",
+      edicion: props["Edicion"]?.select?.name || "",
+      lote: props["Lote"]?.multi_select?.map((item) => item.name) || [],
+      tema: props["Tema"]?.rich_text?.[0]?.plain_text || "",
+      rareza: props["Rareza"]?.select?.name || "",
+      venta: props["Venta"]?.number || 0,
+      archivos: props["Archivos y multimedia"]?.files || [],
+      tematico: props["Tematico"]?.checkbox || false,
+    };
+
+    res.json(producto);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 
 //Obtener todas las ventas 
