@@ -5,7 +5,7 @@ import axios from 'axios';
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
-    const response = await axios.get('http://localhost:3000/allIndiceFormat');
+    const response = await axios.get('https://laxwiphw.onrender.com/allIndiceFormat');
     return response.data;
   }
 );
