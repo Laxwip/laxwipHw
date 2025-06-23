@@ -57,7 +57,6 @@ app.get("/allIndiceFormat", async (req, res) => {
   }
 });
 
-//Crear un nuevo producto
 app.post("/createProducto", async (req, res) => {
   try {
     const {
@@ -74,43 +73,51 @@ app.post("/createProducto", async (req, res) => {
       tematico,
     } = req.body;
 
+    // Crear el objeto base de propiedades
+    const properties = {
+      Nombre: {
+        title: [{ text: { content: nombre } }],
+      },
+      Disponibilidad: {
+        select: { name: disponibilidad },
+      },
+      "##": {
+        rich_text: [{ text: { content: numeroDoble } }],
+      },
+      "#": {
+        rich_text: [{ text: { content: numero } }],
+      },
+      Serie: {
+        rich_text: [{ text: { content: serie } }],
+      },
+      Edicion: {
+        select: { name: edicion },
+      },
+      Lote: {
+        multi_select: lote.map((l) => ({ name: l })),
+      },
+      Rareza: {
+        select: { name: rareza },
+      },
+      Venta: {
+        number: venta,
+      },
+      Tematico: {
+        checkbox: tematico,
+      },
+    };
+
+    // Agregar el campo Tema solo si viene definido (y no es cadena vacía)
+    if (tema && tema.trim() !== "") {
+      properties.Tema = {
+        rich_text: [{ text: { content: tema } }],
+      };
+    }
+
+    // Crear página en Notion
     const response = await notion.pages.create({
       parent: { database_id: indice },
-      properties: {
-        Nombre: {
-          title: [{ text: { content: nombre } }],
-        },
-        Disponibilidad: {
-          select: { name: disponibilidad },
-        },
-        "##": {
-          rich_text: [{ text: { content: numeroDoble } }],
-        },
-        "#": {
-          rich_text: [{ text: { content: numero } }],
-        },
-        Serie: {
-          rich_text: [{ text: { content: serie } }],
-        },
-        Edicion: {
-          select: { name: edicion },
-        },
-        Lote: {
-          multi_select: lote.map((l) => ({ name: l })),
-        },
-        Tema: {
-          rich_text: [{ text: { content: tema } }],
-        },
-        Rareza: {
-          select: { name: rareza },
-        },
-        Venta: {
-          number: venta,
-        },
-        Tematico: {
-          checkbox: tematico,
-        },
-      },
+      properties,
     });
 
     res.json({ success: true, data: response });
@@ -118,6 +125,7 @@ app.post("/createProducto", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 //Editar un producto
 app.patch("/editProducto/:id", async (req, res) => {

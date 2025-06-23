@@ -7,7 +7,7 @@ import './Search.css';
 export default function Search() {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
-  const { searchResults, status, error } = useSelector((state) => state.products);
+  const { searchResults, searchStatus, searchError } = useSelector((state) => state.products);    
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -32,14 +32,14 @@ export default function Search() {
         />
       </div>
 
-      {status === 'loading' && (
+      {searchStatus === 'loading' && (
         <img className="productsContainerCharging" src="https://i.gifer.com/ZKZg.gif" alt="Cargando..." />
       )}
-      {status === 'failed' && <p>Error: {error}</p>}
+      {searchStatus === 'failed' && <p>Error: {error}</p>}
 
       <div className="results">
-        {status === 'succeeded' && searchResults.length === 0 && <p>No se encontraron resultados.</p>}
-        {status === 'succeeded' && searchResults.length > 0 &&
+        {searchStatus === 'succeeded' && searchResults.length === 0 && <p>No se encontraron resultados.</p>}
+        {searchStatus === 'succeeded' && searchResults.length > 0 &&
           searchResults.map((item, i) => (
             <span key={i}>
               <Link to={`/details/${item.id}`}>

@@ -13,7 +13,7 @@ export const fetchProducts = createAsyncThunk(
 export const searchProducts = createAsyncThunk(
   'products/searchProducts',
   async (query) => {
-    const response = await axios.get(`https://laxwiphw.onrender.com/buscarProducto?nombre=${query}`);
+    const response = await axios.get(`https://laxwiphw.onrender.com/buscarProducto?q=${encodeURIComponent(query)}`);
     return response.data;
   }
 );
@@ -31,12 +31,13 @@ export const fetchProductById = createAsyncThunk(
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    items: [],           // Todos los productos
-    homepageItems: [],   // Solo los disponibles
+    items: [],
+    homepageItems: [],
     searchResults: [],
     status: 'idle',
+    searchStatus: 'idle',     // Nuevo estado solo para búsqueda
     error: null,
-    selectedProduct: null,
+    searchError: null,
   },
   reducers: {
     clearSearchResults: (state) => {
@@ -61,15 +62,15 @@ const productsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(searchProducts.pending, (state) => {
-        state.status = 'loading';
+        state.searchStatus = 'loading';
       })
       .addCase(searchProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.searchStatus = 'succeeded';
         state.searchResults = action.payload;
       })
       .addCase(searchProducts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.searchStatus = 'failed';
+        state.searchError = action.error.message;
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.selectedProduct = action.payload;

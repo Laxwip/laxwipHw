@@ -1,14 +1,17 @@
 .Search {
   width: 100%;
-  height: calc(100% - 5rem);
+  height: calc(100% - 3.5rem);
+  display: flex;
+  flex-direction: column;
 }
 
 .searchBar {
   padding: 0.5rem;
+  flex-shrink: 0;
 }
 
 .searchBar input {
-  width: 100%;
+  width: calc(100% - 1.2rem);
   padding: 0.6rem;
   font-size: 1rem;
   border-radius: 0.5rem;
@@ -18,12 +21,15 @@
 
 .results {
   width: 100%;
-  height: 100%;
+  padding: 0.3rem;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.2rem;
-  padding: 0.3rem;
-  box-sizing: border-box;
+  /* ✅ Que se ajuste al contenido y no cause scroll innecesario */
+  height: auto;
+  overflow: hidden;
+  flex-grow: 1;
 }
 
 .results span {
