@@ -71,9 +71,9 @@ app.post("/createProducto", async (req, res) => {
       rareza,
       venta,
       tematico,
+      archivos, // <-- importante incluirlo aquí
     } = req.body;
 
-    // Crear el objeto base de propiedades
     const properties = {
       Nombre: {
         title: [{ text: { content: nombre } }],
@@ -107,14 +107,21 @@ app.post("/createProducto", async (req, res) => {
       },
     };
 
-    // Agregar el campo Tema solo si viene definido (y no es cadena vacía)
     if (tema && tema.trim() !== "") {
       properties.Tema = {
         rich_text: [{ text: { content: tema } }],
       };
     }
 
-    // Crear página en Notion
+    if (Array.isArray(archivos) && archivos.length > 0) {
+      properties.Archivos = {
+        files: archivos.map((url) => ({
+          name: "imagen",
+          external: { url },
+        })),
+      };
+    }
+
     const response = await notion.pages.create({
       parent: { database_id: indice },
       properties,
@@ -125,6 +132,7 @@ app.post("/createProducto", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 
 //Editar un producto
