@@ -114,7 +114,7 @@ app.post("/createProducto", async (req, res) => {
     }
 
     if (Array.isArray(archivos) && archivos.length > 0) {
-      properties.Archivos = {
+      properties.Imagen = {
         files: archivos.map((url) => ({
           name: "imagen",
           external: { url },
