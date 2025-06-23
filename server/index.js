@@ -46,7 +46,7 @@ app.get("/allIndiceFormat", async (req, res) => {
         tema: props["Tema"]?.rich_text?.[0]?.plain_text || "",
         rareza: props["Rareza"]?.select?.name || "",
         venta: props["Venta"]?.number || 0,
-        archivos: props["Archivos y multimedia"]?.files || [],
+        archivos: props["Imagen"]?.files || [],
         tematico: props["Tematico"]?.checkbox || false,
       };
     });
