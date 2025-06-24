@@ -3,3 +3,10 @@
   height: calc(100% + 5rem);
   /* margin-bottom: 5rem; */
 }
+
+.Details img {
+  width: 50%;
+  border-radius: 1rem;
+  border: .5rem solid white;
+}
+
