@@ -20,6 +20,9 @@ export default function Search() {
     }
   };
 
+  console.log(searchResults);
+  
+
 
   return (
     <div className="Search">
