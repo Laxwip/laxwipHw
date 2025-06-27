@@ -35,19 +35,19 @@ export default function Details() {
       <div className='detailsDatos'>
         <div>
           <span>
-            <img src="/public/disponibilidad.png" alt="" className='imgIcons' />
+            <img src="/disponibilidad.png" alt="" className='imgIcons' />
           </span>
           {product.disponibilidad}
         </div>
         <div>
           <span>
-            <img src="/public/serie.png" alt="" className='imgIcons'/>
+            <img src="/serie.png" alt="" className='imgIcons'/>
           </span>
           {product.serie}
         </div>
         <div>
           <span>
-            <img src="/public/edicion.png" alt="" className="imgIcons" />
+            <img src="/edicion.png" alt="" className="imgIcons" />
           </span>
           {product.edicion}
         </div>
