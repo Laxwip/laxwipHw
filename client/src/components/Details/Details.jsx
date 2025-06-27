@@ -25,17 +25,39 @@ export default function Details() {
 
   return (
     <div className="Details">
-      <h2>{product.nombre}</h2>
       <img
         src={product.archivos?.[0] || "https://res.cloudinary.com/dpk2wmbsb/image/upload/v1740155576/no-image-icon-23485_bc5oyn.png"}
         alt=""
+        className='imgPrincipal'
       />
-      <p><strong>Serie:</strong> {product.serie}</p>
-      <p><strong>Edición:</strong> {product.edicion}</p>
-      <p><strong>Tema:</strong> {product.tema}</p>
-      <p><strong>Venta:</strong> S/. {product.venta}</p>
-      <p><strong>Disponibilidad:</strong> {product.disponibilidad}</p>
-      <p><strong>Rareza:</strong> {product.rareza}</p>
+      <h2>{product.nombre}</h2>
+      <div className='hr'></div>
+      <div className='detailsDatos'>
+        <div>
+          <span>
+            <img src="/public/disponibilidad.png" alt="" className='imgIcons' />
+          </span>
+          {product.disponibilidad}
+        </div>
+        <div>
+          <span>
+            <img src="/public/serie.png" alt="" className='imgIcons'/>
+          </span>
+          {product.serie}
+        </div>
+        <div>
+          <span>
+            <img src="/public/edicion.png" alt="" className="imgIcons" />
+          </span>
+          {product.edicion}
+        </div>
+        <p><strong>Serie:</strong> {product.serie}</p>
+        <p><strong>Edición:</strong> {product.edicion}</p>
+        <p><strong>Tema:</strong> {product.tema}</p>
+        <p><strong>Venta:</strong> S/. {product.venta}</p>
+        <p><strong>Disponibilidad:</strong> {product.disponibilidad}</p>
+        <p><strong>Rareza:</strong> {product.rareza}</p>
+      </div>
     </div>
   );
 }

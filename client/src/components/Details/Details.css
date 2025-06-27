@@ -1,12 +1,49 @@
 .Details{
   width: 100%;
   height: calc(100% + 5rem);
+  margin-top: 2rem;
   /* margin-bottom: 5rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.Details img {
+.hr{
+  width: 90%;
+  height: 2px;
+  background-color: white;
+}
+
+.Details .imgPrincipal {
   width: 50%;
   border-radius: 1rem;
   border: .5rem solid white;
+}
+
+
+.detailsDatos{
+  text-align: left;
+  width: 90%;
+}
+
+.detailsDatos div {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.detailsDatos span{
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgIcons{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert();
 }
 
