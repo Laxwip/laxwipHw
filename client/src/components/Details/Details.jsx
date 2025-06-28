@@ -233,8 +233,9 @@ export default function Details() {
 
               <select name="rareza" value={formData.rareza || ''} onChange={handleEditChange} className={formData.rareza ? 'filled' : ''}>
                 <option value="">Rareza</option>
-                <option value="Nuevo">Nuevo</option>
+                <option value="Comun">Comun</option>
                 <option value="Recolor">Recolor</option>
+                <option value="Nuevo">Nuevo</option>
                 <option value="TH">TH</option>
                 <option value="STH">STH</option>
               </select>

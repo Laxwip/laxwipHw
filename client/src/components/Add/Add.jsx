@@ -218,8 +218,9 @@ export default function Add() {
         <select name="rareza" value={form.rareza} onChange={handleChange}
         className={form.disponibilidad ? 'filled' : ''}>
           <option value="">Rareza</option>
-          <option value="Nuevo">Nuevo</option>
+          <option value="Comun">Comun</option>
           <option value="Recolor">Recolor</option>
+          <option value="Nuevo">Nuevo</option>
           <option value="TH">TH</option>
           <option value="STH">STH</option>
         </select>
