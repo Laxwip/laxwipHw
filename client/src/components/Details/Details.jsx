@@ -51,12 +51,38 @@ export default function Details() {
           </span>
           {product.edicion}
         </div>
-        <p><strong>Serie:</strong> {product.serie}</p>
-        <p><strong>Edición:</strong> {product.edicion}</p>
-        <p><strong>Tema:</strong> {product.tema}</p>
-        <p><strong>Venta:</strong> S/. {product.venta}</p>
-        <p><strong>Disponibilidad:</strong> {product.disponibilidad}</p>
-        <p><strong>Rareza:</strong> {product.rareza}</p>
+        <div>
+          <span>
+            <img src="/numeroSerie.png" alt="" className='imgIcons' />
+          </span>
+          {product.numero} / 250
+        </div>
+        <div>
+          <span>
+            <img src="/numeroSubSerie.png" alt="" className='imgIcons'/>
+          </span>
+          {product.numeroDoble}
+        </div>
+        {product.tematico && product.tema && (
+          <div>
+            <span>
+              <img src="/tema.png" alt="" className='imgIcons' />
+            </span>
+            {product.tema}
+          </div>
+        )}
+        <div>
+          <span>
+            <img src="/rareza.png" alt="" className='imgIcons' />
+          </span>
+          {product.rareza}
+        </div>
+        <div>
+          <span>
+            <img src="/ventas.png" alt="" className='imgIcons' />
+          </span>
+          {product.venta}
+        </div>
       </div>
     </div>
   );
