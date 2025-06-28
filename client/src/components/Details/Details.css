@@ -111,3 +111,141 @@
   z-index: -1;
 }
 
+/* FORMULARIO DE EDICIÓN (heredado de Add.css) */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.formulario input[type="text"],
+.formulario input[type="number"],
+.formulario select {
+  padding: 0.5rem;
+  font-size: .8rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ccc;
+  color: #333;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.formulario select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.6rem center;
+  background-size: 1rem;
+}
+
+.formulario select:focus,
+.formulario input:focus {
+  outline: none;
+  color: #bbbbbb;
+  border-color: #f3f3f3;
+  background-color: #3d3d50;
+}
+
+.formulario select[multiple] {
+  background-image: none;
+  height: auto;
+}
+
+.formulario select[multiple] option:checked {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.formulario button {
+  padding: 0.6rem;
+  font-size: 1rem;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.formulario button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.formulario select.filled,
+.formulario input.filled {
+  background-color: #3d3d50;
+  color: white;
+}
+
+/* LOTE */
+.lote-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lote-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.lote-tag {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid white;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 500;
+}
+
+.lote-tag button {
+  background: none;
+  border: none;
+  color: rgb(187, 38, 38);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+}
+
+/* TEMÁTICO */
+.tematico-container {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  user-select: none;
+  position: relative;
+}
+
+.checkbox-label input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  width: 20px;
+  height: 20px;
+  background-color: #444;
+  border-radius: 0.3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: '✔';
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  left: 3px;
+  top: -1px;
+}
