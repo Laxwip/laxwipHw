@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Trae todos los productos desde tu backend
+// Traer todos los productos
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
@@ -10,6 +10,7 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+// Buscar productos
 export const searchProducts = createAsyncThunk(
   'products/searchProducts',
   async (query) => {
@@ -18,6 +19,7 @@ export const searchProducts = createAsyncThunk(
   }
 );
 
+// Obtener producto por ID
 export const fetchProductById = createAsyncThunk(
   'products/fetchProductById',
   async (id) => {
@@ -26,7 +28,14 @@ export const fetchProductById = createAsyncThunk(
   }
 );
 
-
+// Eliminar producto por ID
+export const deleteProductById = createAsyncThunk(
+  'products/deleteProductById',
+  async (id) => {
+    await axios.delete(`https://laxwiphw.onrender.com/eliminarProducto/${id}`);
+    return id;
+  }
+);
 
 const productsSlice = createSlice({
   name: 'products',
@@ -34,8 +43,10 @@ const productsSlice = createSlice({
     items: [],
     homepageItems: [],
     searchResults: [],
+    selectedProduct: null,
     status: 'idle',
-    searchStatus: 'idle',     // Nuevo estado solo para búsqueda
+    searchStatus: 'idle',
+    deleteStatus: 'idle',
     error: null,
     searchError: null,
   },
@@ -46,13 +57,13 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // fetchProducts
       .addCase(fetchProducts.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.items = action.payload;
-        // Filtrar solo los disponibles para homepage
         state.homepageItems = action.payload.filter(
           (item) => item.disponibilidad.toLowerCase() === 'disponible'
         );
@@ -61,6 +72,8 @@ const productsSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+
+      // searchProducts
       .addCase(searchProducts.pending, (state) => {
         state.searchStatus = 'loading';
       })
@@ -72,10 +85,32 @@ const productsSlice = createSlice({
         state.searchStatus = 'failed';
         state.searchError = action.error.message;
       })
+
+      // fetchProductById
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.selectedProduct = action.payload;
+      })
+
+      // deleteProductById
+      .addCase(deleteProductById.pending, (state) => {
+        state.deleteStatus = 'loading';
+      })
+      .addCase(deleteProductById.fulfilled, (state, action) => {
+        state.deleteStatus = 'succeeded';
+        const id = action.payload;
+        state.items = state.items.filter((item) => item.id !== id);
+        state.searchResults = state.searchResults.filter((item) => item.id !== id);
+        state.homepageItems = state.homepageItems.filter((item) => item.id !== id);
+        if (state.selectedProduct?.id === id) {
+          state.selectedProduct = null;
+        }
+      })
+      .addCase(deleteProductById.rejected, (state, action) => {
+        state.deleteStatus = 'failed';
+        state.error = action.error.message;
       });
   },
 });
 
+export const { clearSearchResults } = productsSlice.actions;
 export default productsSlice.reducer;
