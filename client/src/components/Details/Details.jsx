@@ -83,6 +83,18 @@ export default function Details() {
           </span>
           {product.venta}
         </div>
+        {Array.isArray(product.lote) && product.lote.length > 0 && (
+          <div>
+            <span>
+              <img src="/lote.png" alt="" className="imgIcons" />
+            </span>
+            {product.lote.map((lote, index) => (
+              <span key={index} className="loteTag">
+                {lote}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
