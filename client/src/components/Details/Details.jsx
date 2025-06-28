@@ -131,12 +131,10 @@ export default function Details() {
       {showConfirmModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            {deleting ? (
-              deleted ? (
-                <p className="success-check">✔ Producto eliminado</p>
-              ) : (
-                <p className="loading-spinner">Eliminando...</p>
-              )
+            {deleted ? (
+              <p className="success-check">✔ Producto eliminado</p>
+            ) : deleting ? (
+              <p className="loading-spinner">Eliminando...</p>
             ) : (
               <>
                 <p>¿Estás seguro de que deseas eliminar este producto?</p>
