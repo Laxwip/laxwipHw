@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   position: relative; /* necesario para que el hijo absoluto se posicione respecto a este */
-  z-index: -1;
 }
 
 .detailsBottonOptions {
